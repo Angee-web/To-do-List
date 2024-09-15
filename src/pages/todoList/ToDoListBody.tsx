@@ -24,6 +24,7 @@ const TodoListBody = ({
   onDeleteTask,
   onToggleComplete,
 }: TodoListBodyProps) => {
+  
   // define state for the editing task
   const [editingTask, setEditingTask] = useState<Task | null>(null);
 

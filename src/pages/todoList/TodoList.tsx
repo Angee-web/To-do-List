@@ -12,8 +12,11 @@ interface Task {
 }
 
 const TodoList = () => {
-// define state for the tasks
-  const [tasks, setTasks] = useState<Task[]>([]);
+  // define state for the tasks and load tasks from local storage or initialize as an empty array
+  const [tasks, setTasks] = useState<Task[]>(() => {
+    const storedTasks = localStorage.getItem("tasks");
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
 
   // fetch the stored tasks from localStorage on first render
   useEffect(() => {
@@ -21,8 +24,8 @@ const TodoList = () => {
     // check if there is tasks in storage and parse them
     if (storedTasks) {
       try {
-         const parsedTasks = JSON.parse(storedTasks);
-         setTasks(parsedTasks);
+        const parsedTasks = JSON.parse(storedTasks);
+        setTasks(parsedTasks);
       } catch (e) {
         console.error("Error parsing JSON from localStorage:", e);
       }
